@@ -1,0 +1,82 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textColorPrimary">@color/text_color_primary</item>
+        <item name="android:textColorSecondary">@color/text_second_color_primary</item>
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextView</item>
+        <item name="popupTheme">@style/popupTheme</item>
+        <item name="popupMenuStyle">@style/popupMenuStyle</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/activated_background</item>
+        <item name="selectableItemBackground">@drawable/selectable_background</item>
+    </style>
+
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="queryBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="AutoCompleteTextView" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColorHint">@android:color/white</item>
+    </style>
+
+    <style name="popupTheme" parent="AppBaseTheme.Dark">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="popupMenuStyle" parent="Base.Widget.AppCompat.PopupMenu.Overflow">
+    </style>
+
+    <style name="ToolbarTheme" parent="AppBaseTheme">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="colorControlActivated">@android:color/white</item>
+    </style>
+
+    <style name="AppBaseTheme.Dark" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textColorPrimary">@color/text_color_primary</item>
+        <item name="android:textColorSecondary">@color/text_second_color_primary</item>
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextView</item>
+        <item name="popupTheme">@style/popupTheme</item>
+        <item name="popupMenuStyle">@style/popupMenuStyle</item>
+
+        <item name="android:activatedBackgroundIndicator">@drawable/activated_background</item>
+        <item name="selectableItemBackground">@drawable/selectable_background</item>
+    </style>
+
+    <style name="IMThemeTransparent">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@android:color/transparent</item>
+    </style>
+</resources>
