@@ -9,30 +9,30 @@ import java.util.List;
 
 import butterknife.Bind;
 import lico.example.R;
-import lico.example.adapter.TabFragmentPagerAdapter;
+import lico.example.adapter.ContentPagerAdapter;
 
 /**
- * Created by zzk on 15/12/1.
+ * Created by zzk on 15/12/22.
  */
-public class ImagesView extends ViewImpl {
-    @Bind(R.id.tabs)
+public class ContentView extends ViewImpl {
+    @Bind(R.id.content_tab)
     TabLayout tabs;
-    @Bind(R.id.viewpager)
+    @Bind(R.id.content_viewpager)
     ViewPager viewpager;
 
-    private TabFragmentPagerAdapter mPagerAdapter;
+    private ContentPagerAdapter mPagerAdapter;
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_images;
+        return R.layout.fragment_content;
     }
 
-    public void initViewPager(String[] titles, FragmentManager manager){
+    public void initViewPager(String[] titles, FragmentManager fragmentManager) {
         viewpager.setOffscreenPageLimit(titles.length + 1);
         List<String> title = new ArrayList<>();
         for (String titles1 : titles)
             title.add(titles1);
-        mPagerAdapter = new TabFragmentPagerAdapter(manager, title, 1);
+        mPagerAdapter = new ContentPagerAdapter(fragmentManager, title);
         viewpager.setAdapter(mPagerAdapter);
         tabs.setupWithViewPager(viewpager);
         tabs.setTabsFromPagerAdapter(mPagerAdapter);

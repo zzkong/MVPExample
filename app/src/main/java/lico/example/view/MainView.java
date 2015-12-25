@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import lico.example.R;
+import lico.example.fragment.ContentFragment;
 import lico.example.fragment.ImageFragment;
 import lico.example.helper.EventHelper;
 
@@ -33,11 +35,11 @@ public class MainView extends ViewImpl {
     NavigationView navView;
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-    @Bind(R.id.container)
-    FrameLayout container;
+
 
     private ImageView mHeadBgImg, mAvatorImg;
     private ImageFragment mImageFragment;
+    private ContentFragment mContentFragment;
 
     @Override
     public int getLayoutId() {
@@ -122,7 +124,7 @@ public class MainView extends ViewImpl {
         hideFragment(transaction);
         switch (menuId) {
             case R.id.nav_camera:
-                    mImageFragment = (ImageFragment) manager.findFragmentByTag("images");
+                mImageFragment = (ImageFragment) manager.findFragmentByTag("images");
                 if (mImageFragment == null) {
                     mImageFragment = new ImageFragment();
                     transaction.add(R.id.container, mImageFragment, "images");
@@ -131,6 +133,15 @@ public class MainView extends ViewImpl {
                 }
                 break;
             case R.id.nav_gallery:
+                mContentFragment = (ContentFragment) manager.findFragmentByTag("contentlist");
+                if (mContentFragment == null) {
+                    mContentFragment = new ContentFragment();
+                    transaction.add(R.id.container, mContentFragment, "contentlist");
+                } else {
+                    transaction.show(mContentFragment);
+                }
+
+
                 break;
             case R.id.nav_slideshow:
                 break;
@@ -148,6 +159,9 @@ public class MainView extends ViewImpl {
     private void hideFragment(FragmentTransaction transaction) {
         if (mImageFragment != null) {
             transaction.hide(mImageFragment);
+        }
+        if (mContentFragment != null) {
+            transaction.hide(mContentFragment);
         }
     }
 

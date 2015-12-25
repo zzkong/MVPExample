@@ -29,7 +29,6 @@ public class ImageListView extends ViewImpl {
     XRecyclerView xrecyclerView;
 
     private SimpleRecyclerAdapter mAdapter;
-
     private List<ImagesListEntity> mList = new ArrayList<>();
 
     @Override

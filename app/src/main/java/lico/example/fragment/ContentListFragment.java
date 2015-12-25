@@ -1,14 +1,12 @@
 package lico.example.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
-
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import lico.example.bean.ResponseImagesListEntity;
 import lico.example.listener.HttpApi;
 import lico.example.presenter.FragmentPresenter;
-import lico.example.view.ImageListView;
+import lico.example.view.ContentListView;
+import lico.example.views.PullLoadMoreRecyclerView;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
@@ -17,20 +15,20 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by zzk on 15/12/7.
+ * Created by zzk on 15/12/22.
  */
-public class ImageListFragment extends FragmentPresenter<ImageListView> implements XRecyclerView.LoadingListener{
+public class ContentListFragment extends FragmentPresenter<ContentListView> implements PullLoadMoreRecyclerView.PullLoadMoreListener{
 
-    boolean isRefresh = true;
     String keyword;
+    boolean isRefresh = true;
     int page = 0;
 
-    public static ImageListFragment newInstance(String title) {
-        ImageListFragment imageListFragment = new ImageListFragment();
+    public static ContentListFragment newInstance(String title){
+        ContentListFragment contentListFragment = new ContentListFragment();
         Bundle bundle = new Bundle();
         bundle.putString("keyword", title);
-        imageListFragment.setArguments(bundle);
-        return imageListFragment;
+        contentListFragment.setArguments(bundle);
+        return contentListFragment;
     }
 
     @Override
@@ -40,7 +38,7 @@ public class ImageListFragment extends FragmentPresenter<ImageListView> implemen
         getData();
     }
 
-    private void getData() {
+    private void getData(){
         keyword = getArguments().getString("keyword");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://image.baidu.com")
@@ -53,18 +51,21 @@ public class ImageListFragment extends FragmentPresenter<ImageListView> implemen
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<ResponseImagesListEntity>() {
                     @Override
-                    public void onCompleted() {}
+                    public void onCompleted() {
+
+                    }
 
                     @Override
-                    public void onError(Throwable e) {}
+                    public void onError(Throwable e) {
+
+                    }
 
                     @Override
                     public void onNext(ResponseImagesListEntity entity) {
                         if(isRefresh) mView.refreshListData(entity.imgs);
-                        mView.addListData(entity.imgs);
+                        else mView.addListData(entity.imgs);
                     }
                 });
-
     }
 
     @Override

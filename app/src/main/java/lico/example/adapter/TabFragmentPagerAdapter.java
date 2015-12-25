@@ -8,6 +8,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import lico.example.fragment.ContentListFragment;
 import lico.example.fragment.ImageListFragment;
 
 /**
@@ -16,15 +17,25 @@ import lico.example.fragment.ImageListFragment;
 public class TabFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private List<String> mFragmentTitles = new ArrayList<>();
+    private int mType;
 
-    public TabFragmentPagerAdapter(FragmentManager fm, List<String> strings) {
+    public TabFragmentPagerAdapter(FragmentManager fm, List<String> strings, int type) {
         super(fm);
         this.mFragmentTitles = strings;
+        mType = type;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return ImageListFragment.newInstance(mFragmentTitles.get(position));
+        Log.e("x", "----------------------type: " + mType);
+        if (mType == 1){
+            Log.e("x", "xxxxxxxp2222222222222apggg");
+            return ImageListFragment.newInstance(mFragmentTitles.get(position));
+        } else {
+            Log.e("x", "xxxxxxxp1111111111111111apggg");
+            return ContentListFragment.newInstance(mFragmentTitles.get(position));
+        }
+
     }
 
     @Override
