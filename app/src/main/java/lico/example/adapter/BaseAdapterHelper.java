@@ -1,5 +1,6 @@
 package lico.example.adapter;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
@@ -8,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import lico.example.app.EApplication;
+import lico.example.views.PLAImageView;
 
 
 /**
@@ -25,16 +28,16 @@ public class BaseAdapterHelper extends RecyclerView.ViewHolder {
         this.views = new SparseArray<View>();
     }
 
-    public void setText(int viewId, String str){
+    public void setText(int viewId, String str) {
         View view = retrieveView(viewId);
-        if(view instanceof TextView){
+        if (view instanceof TextView) {
             ((TextView) view).setText(str);
-        }else if(view instanceof Button){
+        } else if (view instanceof Button) {
             ((Button) view).setText(str);
         }
     }
 
-    public void setImageByUrl(int viewId, String url){
+    public void setImageByUrl(int viewId, String url) {
         View view = retrieveView(viewId);
 //        if(view instanceof RatioImageView){    //普通图片用glide加载
 //            Glide.with(EApplication.getInstance()).load(url)
@@ -46,14 +49,16 @@ public class BaseAdapterHelper extends RecyclerView.ViewHolder {
 //            Glide.with(EApplication.getInstance()).load(url)
 //                    .crossFade().into((SquaredImageView) view);
 //        }else
-        if(view instanceof ImageView){
+        if (view instanceof PLAImageView) {
+            Glide.with(EApplication.getInstance()).load(url)
+                    .crossFade().into((PLAImageView) view);
+        } else if (view instanceof ImageView) {
             Glide.with(EApplication.getInstance()).load(url)
                     .crossFade().into((ImageView) view);
+        } else if (view instanceof SimpleDraweeView) {
+            Uri uri = Uri.parse(url);
+            ((SimpleDraweeView) view).setImageURI(uri);
         }
-//        else if(view instanceof SimpleDraweeView){
-//            Uri uri = Uri.parse(url);
-//            ((SimpleDraweeView) view).setImageURI(uri);
-//        }
     }
 
     public TextView getTextView(int viewId) {

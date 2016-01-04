@@ -3,7 +3,6 @@ package lico.example.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +26,9 @@ public class TabFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.e("x", "----------------------type: " + mType);
         if (mType == 1){
-            Log.e("x", "xxxxxxxp2222222222222apggg");
             return ImageListFragment.newInstance(mFragmentTitles.get(position));
         } else {
-            Log.e("x", "xxxxxxxp1111111111111111apggg");
             return ContentListFragment.newInstance(mFragmentTitles.get(position));
         }
 

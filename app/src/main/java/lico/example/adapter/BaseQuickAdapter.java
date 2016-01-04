@@ -27,6 +27,7 @@ public abstract class BaseQuickAdapter<T, H extends BaseAdapterHelper> extends R
 
     public BaseQuickAdapter(Context mContext, int mLayoutResId) {
         this(mContext, mLayoutResId, null);
+        setHasStableIds(true);
     }
 
     public BaseQuickAdapter(Context mContext, int mLayoutResId, List<T> data) {

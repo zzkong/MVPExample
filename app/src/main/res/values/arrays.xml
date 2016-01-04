@@ -23,4 +23,14 @@
         <item>摄影</item>
         <item>美食</item>
     </array>
+
+    <array name="archive_list">
+        <item>程序设计</item>
+        <item>安卓开发</item>
+        <item>前端开发</item>
+        <item>IOS开发</item>
+        <item>数据库</item>
+    </array>
+
+
 </resources>

@@ -26,7 +26,6 @@ public class PullLoadMoreRecyclerView extends LinearLayout{
     private boolean hasMore = true;
     private boolean isRefresh = false;
     private boolean isLoadMore = false;
-    private LinearLayout mFooterView;
     private Context mContext;
 
 
@@ -117,7 +116,6 @@ public class PullLoadMoreRecyclerView extends LinearLayout{
 
     public void loadMore() {
         if (mPullLoadMoreListener != null && hasMore) {
-         //   mFooterView.setVisibility(View.VISIBLE);
             mPullLoadMoreListener.onLoadMore();
 
         }
@@ -129,7 +127,6 @@ public class PullLoadMoreRecyclerView extends LinearLayout{
         mSwipeRefreshLayout.setRefreshing(false);
 
         isLoadMore = false;
-        mFooterView.setVisibility(View.GONE);
 
     }
 

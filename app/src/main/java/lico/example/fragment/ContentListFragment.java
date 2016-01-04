@@ -1,32 +1,35 @@
 package lico.example.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 
-import lico.example.bean.ResponseImagesListEntity;
-import lico.example.listener.HttpApi;
+import java.util.List;
+
+import lico.example.bean.JcodeInfo;
 import lico.example.presenter.FragmentPresenter;
+import lico.example.utils.DataUtil;
 import lico.example.view.ContentListView;
 import lico.example.views.PullLoadMoreRecyclerView;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
+
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
  * Created by zzk on 15/12/22.
  */
-public class ContentListFragment extends FragmentPresenter<ContentListView> implements PullLoadMoreRecyclerView.PullLoadMoreListener{
+public class ContentListFragment extends FragmentPresenter<ContentListView> implements PullLoadMoreRecyclerView.PullLoadMoreListener {
 
-    String keyword;
+    String tid;
     boolean isRefresh = true;
-    int page = 0;
+    int page = 1;
 
-    public static ContentListFragment newInstance(String title){
+    public static ContentListFragment newInstance(String id) {
         ContentListFragment contentListFragment = new ContentListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("keyword", title);
+        bundle.putString("tid", id);
         contentListFragment.setArguments(bundle);
         return contentListFragment;
     }
@@ -34,36 +37,36 @@ public class ContentListFragment extends FragmentPresenter<ContentListView> impl
     @Override
     protected void lazyData() {
         super.lazyData();
+
         mView.initViews(getActivity(), this);
         getData();
     }
 
-    private void getData(){
-        keyword = getArguments().getString("keyword");
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://image.baidu.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        HttpApi api = retrofit.create(HttpApi.class);
-        api.getImagess(keyword, "全部", page*10, 10, 1)
+    private void getData() {
+        tid = getArguments().getString("tid");
+        Observable.just("")
+                .map(new Func1<String, List<JcodeInfo>>() {
+                    @Override
+                    public List<JcodeInfo> call(String s) {
+                        return DataUtil.getJcodeData(tid, page);
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
-                .subscribe(new Subscriber<ResponseImagesListEntity>() {
+                .subscribe(new Subscriber<List<JcodeInfo>>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
                     }
 
                     @Override
-                    public void onNext(ResponseImagesListEntity entity) {
-                        if(isRefresh) mView.refreshListData(entity.imgs);
-                        else mView.addListData(entity.imgs);
+                    public void onNext(List<JcodeInfo> jcodeInfos) {
+                        Log.e("x", "xx :  " + jcodeInfos.size());
+                        if (isRefresh) mView.refreshListData(jcodeInfos);
+                        else mView.addListData(jcodeInfos);
                     }
                 });
     }
@@ -71,7 +74,7 @@ public class ContentListFragment extends FragmentPresenter<ContentListView> impl
     @Override
     public void onRefresh() {
         isRefresh = true;
-        page = 0;
+        page = 1;
         getData();
     }
 

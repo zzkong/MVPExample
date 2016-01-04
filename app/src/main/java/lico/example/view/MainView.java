@@ -11,9 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import butterknife.Bind;
@@ -57,16 +55,6 @@ public class MainView extends ViewImpl {
         View headerView = navView.inflateHeaderView(R.layout.nav_header_main);
         mHeadBgImg = (ImageView) headerView.findViewById(R.id.head_image);
         mAvatorImg = (ImageView) headerView.findViewById(R.id.imageView);
-
-//        此方法为官网的 还是23.1.1出来的、发现会有各种各样的问题，比如你必须要触发addOnLayout...方法后才能得到里面控件。在此之前使用控件都会报NullPointerException
-//        navView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-//            @Override
-//            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-//                navView.removeOnLayoutChangeListener(this);
-//                mAvatorImg = (ImageView) navView.findViewById(R.id.imageView);
-//                EventHelper.click(mPresenter, mAvatorImg);
-//            }
-//        });
 
         EventHelper.click(mPresenter, fab, mAvatorImg);
         EventHelper.setNavigationItemSelected(mPresenter, navView);
@@ -140,10 +128,9 @@ public class MainView extends ViewImpl {
                 } else {
                     transaction.show(mContentFragment);
                 }
-
-
                 break;
             case R.id.nav_slideshow:
+
                 break;
             case R.id.nav_manage:
                 break;

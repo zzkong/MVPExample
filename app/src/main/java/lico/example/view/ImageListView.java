@@ -20,6 +20,7 @@ import lico.example.adapter.SimpleRecyclerAdapter;
 import lico.example.bean.ImagesListEntity;
 import lico.example.ui.SpaceImageDetailActivity;
 import lico.example.views.PLAImageView;
+import lico.example.views.SpacesItemDecoration;
 
 /**
  * Created by zzk on 15/12/7.
@@ -37,22 +38,24 @@ public class ImageListView extends ViewImpl {
     }
 
     public void initViews(Context context, XRecyclerView.LoadingListener listener){
-        final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         xrecyclerView.setLayoutManager(layoutManager);
         xrecyclerView.setLoadingListener(listener);
         xrecyclerView.setRefreshProgressStyle(ProgressStyle.BallRotate);
         xrecyclerView.setLaodingMoreProgressStyle(ProgressStyle.BallRotate);
+        xrecyclerView.addItemDecoration(new SpacesItemDecoration(5));
         //xrecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
         mAdapter = new SimpleRecyclerAdapter<ImagesListEntity>(context, mList, R.layout.view_image_list_item) {
 
             @Override
             protected void convert(BaseAdapterHelper helper, ImagesListEntity item) {
-                helper.setImageByUrl(R.id.item_image, item.imageUrl);
                 int width = item.thumbnailWidth;
                 int height = item.thumbnailHeight;
                 PLAImageView plaImageView = (PLAImageView) helper.getImageView(R.id.item_image);
                 plaImageView.setImageHeight(height);
                 plaImageView.setImageWidth(width);
+           //     helper.setImage(R.id.item_image, item.thumbnailUrl);
+                helper.setImageByUrl(R.id.item_image, item.thumbnailUrl);
             }
         };
 
@@ -75,12 +78,14 @@ public class ImageListView extends ViewImpl {
         mAdapter.getDataList().addAll(imageEntity);
         mAdapter.notifyDataSetChanged();
         xrecyclerView.refreshComplete();
+        xrecyclerView.scrollToPosition(0);
     }
 
     public void addListData(List<ImagesListEntity> imageEntity){
         xrecyclerView.loadMoreComplete();
         mAdapter.getDataList().addAll(imageEntity);
-        mAdapter.notifyDataSetChanged();
+        //用notifyDataSetChanged();会出现花屏问题
+        mAdapter.notifyItemRangeChanged(mAdapter.getDataList().size() - 10, 10);
         xrecyclerView.refreshComplete();
     }
 

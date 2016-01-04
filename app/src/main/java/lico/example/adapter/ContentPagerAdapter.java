@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,15 +16,17 @@ import lico.example.fragment.ContentListFragment;
 public class ContentPagerAdapter extends FragmentPagerAdapter {
 
     private List<String> mFragmentTitles = new ArrayList<>();
+    private List<String> tids = new ArrayList<>();
 
-    public ContentPagerAdapter(FragmentManager fm, List<String> strings) {
+    public ContentPagerAdapter(FragmentManager fm, List<String> strings, List<String> ids) {
         super(fm);
         this.mFragmentTitles = strings;
+        this.tids = ids;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return ContentListFragment.newInstance(mFragmentTitles.get(position));
+        return ContentListFragment.newInstance(tids.get(position));
     }
 
     @Override

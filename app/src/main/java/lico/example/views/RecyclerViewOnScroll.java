@@ -48,7 +48,6 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
             mPullLoadMoreRecyclerView.setPullRefreshEnable(false);
         }
 
-
         /**
          * Either horizontal or vertical
          */

@@ -1,9 +1,9 @@
 package lico.example.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+
 
 import lico.example.bean.ResponseImagesListEntity;
 import lico.example.listener.HttpApi;
@@ -80,4 +80,5 @@ public class ImageListFragment extends FragmentPresenter<ImageListView> implemen
         page++;
         getData();
     }
+
 }

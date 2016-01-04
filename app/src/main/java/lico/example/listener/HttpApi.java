@@ -1,9 +1,7 @@
 package lico.example.listener;
 
 import lico.example.bean.ResponseImagesListEntity;
-import retrofit.Call;
 import retrofit.http.GET;
-import retrofit.http.Headers;
 import retrofit.http.Query;
 import rx.Observable;
 
@@ -15,4 +13,5 @@ public interface HttpApi {
 
     @GET("/data/imgs")
     Observable<ResponseImagesListEntity> getImagess(@Query("col") String col,@Query("tag")String tag, @Query("pn") int pn, @Query("rn") int rn, @Query("from") int from);
+
 }

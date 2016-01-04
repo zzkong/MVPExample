@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="5dp">
 
-    <android.support.v7.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="3dp"
-        card_view:cardCornerRadius="5dp">
+        android:padding="8dp"
+        android:layout_height="match_parent">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/user_avator"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            fresco:actualImageScaleType="fitCenter" />
+
         <TextView
+            android:id="@+id/content_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_toRightOf="@id/user_avator"
+            android:layout_marginTop="18dp"
             android:gravity="center"
-            android:id="@+id/content_text"/>
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+            android:textSize="16sp" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -27,12 +27,17 @@ public class ContentView extends ViewImpl {
         return R.layout.fragment_content;
     }
 
-    public void initViewPager(String[] titles, FragmentManager fragmentManager) {
+    public void initViewPager(String[] titles, String[] ids, FragmentManager fragmentManager) {
         viewpager.setOffscreenPageLimit(titles.length + 1);
+        List<String> tids = new ArrayList<>();
         List<String> title = new ArrayList<>();
-        for (String titles1 : titles)
+        for (String titles1 : titles) {
             title.add(titles1);
-        mPagerAdapter = new ContentPagerAdapter(fragmentManager, title);
+        }
+        for (String id : ids) {
+            tids.add(id);
+        }
+        mPagerAdapter = new ContentPagerAdapter(fragmentManager, title, tids);
         viewpager.setAdapter(mPagerAdapter);
         tabs.setupWithViewPager(viewpager);
         tabs.setTabsFromPagerAdapter(mPagerAdapter);
